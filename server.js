@@ -41,6 +41,11 @@ if (!HF_TOKEN) {
 // خدمة الملفات الثابتة
 app.use(express.static(__dirname));
 
+// نقطة الصفحة الرئيسية
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // نقطة تحليل الصورة
 app.post('/classify-plant', upload.single('image'), (req, res) => {
   console.log('طلب POST وصل:', req.method, req.url);
@@ -93,6 +98,19 @@ app.post('/classify-plant', upload.single('image'), (req, res) => {
 
   apiReq.write(imageBuffer);
   apiReq.end();
+});
+
+// إضافة نقاط للصفحات الأخرى
+app.get('/ai.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'ai.html'));
+});
+
+app.get('/about.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'about.html'));
+});
+
+app.get('/team.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'team.html'));
 });
 
 // إضافة نقطة للتأكد من أن التطبيق يعمل
