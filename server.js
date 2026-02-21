@@ -5,7 +5,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const upload = multer();
 
 // Load token from environment variable
@@ -66,6 +66,12 @@ app.post('/classify-plant', upload.single('image'), (req, res) => {
     apiReq.end();
 });
 
-app.listen(PORT, () => {
-    console.log('✅ السيرفر شغال: http://localhost:' + PORT);
-});
+// تصدير التطبيق لـ Vercel
+module.exports = app;
+
+// تشغيل السيرفر محلياً فقط
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log('✅ السيرفر شغال: http://localhost:' + PORT);
+    });
+}
