@@ -1,0 +1,113 @@
+// ============================================================
+// Smart Farming AI - Frontend Demo Logic
+// ============================================================
+
+// Set the current year in the footer on all pages
+const yearSpan = document.getElementById("year");
+if (yearSpan) {
+  yearSpan.textContent = new Date().getFullYear();
+}
+
+// Helper: show the selected file name and preview image on the AI page
+const fileInput = document.getElementById("leafImage");
+const fileNameParagraph = document.getElementById("fileName");
+const imagePreviewContainer = document.getElementById("imagePreview");
+
+if (fileInput) {
+  fileInput.addEventListener("change", function () {
+    const file = fileInput.files[0];
+
+    if (!file) {
+      if (fileNameParagraph) {
+        fileNameParagraph.textContent = "No file selected";
+      }
+      if (imagePreviewContainer) {
+        imagePreviewContainer.innerHTML =
+          '<p class="placeholder-text">Your uploaded image will appear here.</p>';
+      }
+      return;
+    }
+
+    // Show file name بالعربي
+    if (fileNameParagraph) {
+      fileNameParagraph.textContent = "الصورة المختارة: " + file.name;
+    }
+
+    // Show image preview
+    if (imagePreviewContainer) {
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        const image = document.createElement("img");
+        image.src = event.target.result;
+
+        imagePreviewContainer.innerHTML = "";
+        imagePreviewContainer.appendChild(image);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+}
+
+// ============================================================
+// analyzeImage()
+// ============================================================
+function analyzeImage() {
+  const diseaseNameEl = document.getElementById("diseaseName");
+  const confidenceEl = document.getElementById("confidenceValue");
+  const treatmentEl = document.getElementById("treatmentSuggestion");
+
+  if (!diseaseNameEl || !confidenceEl || !treatmentEl) {
+    alert("Result elements not found on the page.");
+    return;
+  }
+
+  if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+    alert("من فضلك اختر صورة لورقة نبات أولاً.");
+    return;
+  }
+
+  // ------------------ DEMO PREDICTION ------------------
+
+  // اسم المرض بالعربي + اسم النبات بالعربي
+  diseaseNameEl.textContent = "اللفحة المبكرة في الطماطم";
+
+  // نسبة الثقة تفضل كما هي
+  confidenceEl.textContent = "92%";
+
+  // نصيحة علاج بالعربي بأسلوب زراعي مفهوم
+  treatmentEl.textContent =
+    "قم بإزالة الأوراق المصابة بشدة، وتجنب ري النبات من الأعلى حتى لا تنتشر العدوى، واستخدم مبيد فطري آمن للنبات. يفضل أيضاً تبديل المحصول في الموسم القادم لتقليل احتمالية الإصابة.";
+
+  // تأثير بصري
+  diseaseNameEl.classList.add("flash-result");
+  confidenceEl.classList.add("flash-result");
+  treatmentEl.classList.add("flash-result");
+
+  setTimeout(() => {
+    diseaseNameEl.classList.remove("flash-result");
+    confidenceEl.classList.remove("flash-result");
+    treatmentEl.classList.remove("flash-result");
+  }, 900);
+
+
+  // ======================================================
+  // HOW TO CONNECT GOOGLE TEACHABLE MACHINE LATER:
+  //
+  // 1. Train your model on the Teachable Machine website
+  //    (Image Project -> upload images of leaf diseases).
+  // 2. Export the model for "TensorFlow.js" (Web).
+  // 3. Copy the JavaScript code snippet provided by Teachable Machine.
+  // 4. Paste that code here, replacing the DEMO section above:
+  //    - Instead of fixed text, use the prediction results returned
+  //      by the model and assign them to:
+  //        diseaseNameEl.textContent = "...";
+  //        confidenceEl.textContent = "...";
+  //        treatmentEl.textContent = "...";
+  //
+  // This way, you keep the same HTML structure but power it with
+  // a real AI model.
+  // ======================================================
+}
+

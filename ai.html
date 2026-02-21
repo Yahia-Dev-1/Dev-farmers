@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>اكتشف أمراض النباتات - The Modern Falla7</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- خط عربي -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <!-- مكتبة الأيقونات -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body style="font-family: 'Cairo', sans-serif;">
+
+  <header class="main-header">
+    <div class="container header-content">
+
+      <div class="logo">
+        <span class="logo-icon">
+          <i class="fa-solid fa-seedling"></i>
+        </span>
+        <span class="logo-text">The Modern Falla7</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="ai.html" class="active">أداة الذكاء الاصطناعي</a>
+        <a href="about.html">حول المشروع</a>
+        <a href="team.html">الفريق</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-header">
+      <div class="container">
+        <h1>اكتشاف أمراض النباتات</h1>
+        <p class="main-desc">
+          ارفع صورة واضحة لـ <strong style="color: #ffeb3b; text-decoration: underline;">ورقة</strong> النبات فقط.
+        </p>
+        <div class="warning-banner">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          بسبب قيود الذكاء الاصطناعي: يرجى تصوير <strong>الأوراق</strong> فقط. البرنامج لا يدعم الثمار (مثل التفاح أو
+          العنب نفسه).
+        </div>
+      </div>
+    </section>
+
+    <section class="ai-section">
+      <div class="container ai-grid">
+
+        <!-- رفع الصورة -->
+        <div class="ai-panel">
+          <h2>
+            <i class="fa-solid fa-camera"></i>
+            رفع صورة الورقة
+          </h2>
+
+          <p class="small-text">
+            اختر صورة تكون فيها الورقة واضحة ومركزة جيداً.
+          </p>
+
+          <label for="leafImage" class="file-input-label">
+            <i class="fa-solid fa-upload"></i>
+            <span>اختر صورة</span>
+            <input type="file" id="leafImage" accept="image/*" />
+          </label>
+
+          <p id="fileName" class="file-name">لم يتم اختيار ملف</p>
+
+          <button id="analyzeBtn" class="btn btn-primary full-width" onclick="analyzeImage()">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            تحليل الصورة
+          </button>
+
+          <p class="disclaimer">
+            هذه نسخة تجريبية. النتائج ليست دقيقة 100٪ ولا تغني عن استشارة متخصص زراعي.
+          </p>
+        </div>
+
+        <!-- النتائج -->
+        <div class="ai-panel">
+
+          <h2>
+            <i class="fa-solid fa-chart-line"></i>
+            نتيجة التحليل
+          </h2>
+
+          <div class="image-preview" id="imagePreview">
+            <p class="placeholder-text">
+              ستظهر الصورة التي رفعتها هنا.
+            </p>
+          </div>
+
+          <div class="result-card" id="resultCard">
+            <div class="result-row">
+              <span class="label">اسم المرض</span>
+              <span class="value" id="diseaseName">-</span>
+            </div>
+
+            <div class="result-row">
+              <span class="label">نسبة الثقة</span>
+              <span class="value" id="confidenceValue">-</span>
+            </div>
+
+            <div class="result-row">
+              <span class="label">العلاج المقترح</span>
+              <span class="value" id="treatmentSuggestion">-</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="container ai-note">
+        <h3><i class="fa-solid fa-list-check"></i> النباتات المدعومة (أوراق فقط)</h3>
+        <div class="supported-list">
+          <span>الطماطم</span> • <span>البطاطس</span> • <span>التفاح</span> • <span>العنب</span> • <span>الذرة</span> •
+          <span>الفلفل</span> • <span>الخوخ</span> • <span>الفراولة</span> • <span>الكرز</span>
+        </div>
+        <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+          * للحصول على أفضل نتيجة، صور ورقة واحدة مصابة بوضوح.
+        </p>
+      </div>
+
+      <div class="container ai-note" style="margin-top: 20px;">
+        <h3>النموذج المستخدم</h3>
+        <p>
+          يستخدم الموقع نموذج
+          <code>linkanjarad/mobilenet_v2_1.0_224-plant-disease-identification</code>
+          من Hugging Face. الصور تُحلل عبر سيرفر آمن لحماية خصوصيتك ومفتاح الـ API.
+        </p>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container footer-content">
+      <p>© <span id="year"></span> The Modern Falla7 . جميع الحقوق محفوظة.</p>
+      <p class="footer-note">
+        مشروع مدرسي — للعرض فقط وليس للاستخدام الطبي الحقيقي.
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
