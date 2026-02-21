@@ -38,8 +38,14 @@ if (!HF_TOKEN) {
     console.warn('❌ تحذير: لم يتم العثور على HF_TOKEN في ملف .env');
 }
 
-// خدمة الملفات الثابتة
-app.use(express.static(__dirname));
+// نقاط للملفات الثابتة
+app.get('/script.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'script.js'));
+});
+
+app.get('/style.css', (req, res) => {
+  res.sendFile(path.join(__dirname, 'style.css'));
+});
 
 // نقطة الصفحة الرئيسية
 app.get('/', (req, res) => {
