@@ -1,4 +1,4 @@
-```javascript
+
 // ============================================================
 // The Modern Falla7
 // Smart Farming AI - Frontend Logic
@@ -908,4 +908,3 @@ async function analyzeImage() {
   }
 
 }
-```

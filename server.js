@@ -121,7 +121,7 @@ app.get('/team.html', (req, res) => {
 
 // إضافة نقطة للتأكد من أن التطبيق يعمل
 app.get('/health', (req, res) => {
-  res.json({ status: 'working', message: 'الخادم شغال нормально' });
+  res.json({ status: 'working', message: 'الخادم يعمل بشكل طبيعي' });
 });
 
 // تصدير التطبيق لـ Vercel
