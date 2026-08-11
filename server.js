@@ -133,6 +133,21 @@ app.get('/health', (req, res) => {
   res.json({ status: 'working', message: 'الخادم يعمل بشكل طبيعي' });
 });
 
+// معالجة أخطاء multer والأخطاء العامة
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(413).json({ error: 'حجم الصورة أكبر من الحد المسموح (4MB).' });
+    }
+    return res.status(400).json({ error: 'حدث خطأ أثناء رفع الملف: ' + err.message });
+  }
+  if (err) {
+    console.error('❌ خطأ غير متوقع:', err.message);
+    return res.status(500).json({ error: 'حدث خطأ غير متوقع في السيرفر.' });
+  }
+  next();
+});
+
 // تصدير التطبيق لـ Vercel
 module.exports = app;
 
