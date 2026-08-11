@@ -52,6 +52,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// عند الوصول المباشر إلى index.html
+app.get('/index.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // نقطة تحليل الصورة
 app.post('/classify-plant', upload.single('image'), (req, res) => {
   console.log('طلب POST وصل:', req.method, req.url);
@@ -117,6 +122,10 @@ app.get('/about.html', (req, res) => {
 
 app.get('/team.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'team.html'));
+});
+
+app.get('/injy.jpg', (req, res) => {
+  res.sendFile(path.join(__dirname, 'injy.jpg'));
 });
 
 // إضافة نقطة للتأكد من أن التطبيق يعمل
