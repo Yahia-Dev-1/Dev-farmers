@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB حد أقصى
+    fileSize: 4 * 1024 * 1024, // 4MB حد أقصى
   }
 });
 

@@ -44,7 +44,7 @@ const analysisLoading = document.getElementById("analysisLoading");
 
 const CONFIDENCE_THRESHOLD = 70.0;
 
-const MAX_FILE_SIZE_MB = 10;
+const MAX_FILE_SIZE_MB = 4;
 
 const ALLOWED_TYPES = [
   "image/jpeg",
